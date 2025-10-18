@@ -12,15 +12,19 @@ defined('ABSPATH') || exit;
 class YOYAKU_Product_Stock_Endpoint extends YOYAKU_Base_Endpoint {
 
     public function __construct() {
+        error_log('YOYAKU_Product_Stock_Endpoint: Constructor called');
         add_action('rest_api_init', array($this, 'register_routes'));
+        error_log('YOYAKU_Product_Stock_Endpoint: rest_api_init hook added');
     }
 
     /**
      * Register REST API routes
      */
     public function register_routes() {
+        error_log('YOYAKU_Product_Stock_Endpoint: register_routes() method called');
+
         // Single product endpoint
-        register_rest_route('yoyaku/v1', '/product-stock-data/(?P<sku>[a-zA-Z0-9-_]+)', array(
+        $result1 = register_rest_route('yoyaku/v1', '/product-stock-data/(?P<sku>[a-zA-Z0-9-_]+)', array(
             'methods' => 'GET',
             'callback' => array($this, 'get_product_by_sku'),
             'permission_callback' => '__return_true', // Public endpoint
@@ -32,9 +36,10 @@ class YOYAKU_Product_Stock_Endpoint extends YOYAKU_Base_Endpoint {
                 )
             )
         ));
+        error_log('YOYAKU_Product_Stock_Endpoint: Single route registered, result: ' . ($result1 ? 'TRUE' : 'FALSE'));
 
         // Batch endpoint - process multiple SKUs at once
-        register_rest_route('yoyaku/v1', '/product-stock-data/batch', array(
+        $result2 = register_rest_route('yoyaku/v1', '/product-stock-data/batch', array(
             'methods' => 'POST',
             'callback' => array($this, 'get_products_batch'),
             'permission_callback' => '__return_true',
@@ -48,6 +53,8 @@ class YOYAKU_Product_Stock_Endpoint extends YOYAKU_Base_Endpoint {
                 )
             )
         ));
+        error_log('YOYAKU_Product_Stock_Endpoint: Batch route registered, result: ' . ($result2 ? 'TRUE' : 'FALSE'));
+        error_log('YOYAKU_Product_Stock_Endpoint: register_routes() completed successfully');
     }
 
     /**

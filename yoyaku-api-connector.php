@@ -43,9 +43,15 @@ spl_autoload_register(function($class) {
  * Using init hook instead of plugins_loaded to ensure REST API is available
  */
 add_action('init', function() {
+    error_log('YOYAKU API Connector: init hook fired');
+
     // Initialize Product Stock Data endpoint (for wp-import-dashboard)
     if (class_exists('YOYAKU_Product_Stock_Endpoint')) {
+        error_log('YOYAKU API Connector: YOYAKU_Product_Stock_Endpoint class exists, instantiating...');
         new YOYAKU_Product_Stock_Endpoint();
+        error_log('YOYAKU API Connector: YOYAKU_Product_Stock_Endpoint instantiated');
+    } else {
+        error_log('YOYAKU API Connector: ERROR - YOYAKU_Product_Stock_Endpoint class not found!');
     }
 
     // Future endpoints can be added here
