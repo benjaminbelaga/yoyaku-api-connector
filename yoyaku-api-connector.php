@@ -40,8 +40,9 @@ spl_autoload_register(function($class) {
 
 /**
  * Initialize plugin endpoints
+ * Using init hook instead of plugins_loaded to ensure REST API is available
  */
-add_action('plugins_loaded', function() {
+add_action('init', function() {
     // Initialize Product Stock Data endpoint (for wp-import-dashboard)
     if (class_exists('YOYAKU_Product_Stock_Endpoint')) {
         new YOYAKU_Product_Stock_Endpoint();
@@ -49,9 +50,9 @@ add_action('plugins_loaded', function() {
 
     // Future endpoints can be added here
     // if (class_exists('YOYAKU_Product_Labels_Endpoint')) {
-    //     new YOYAKU_Product_Labels_Endpoint();
+    //     new YOYAKU_Product_Stack_Endpoint();
     // }
-});
+}, 10);
 
 /**
  * Activation hook
