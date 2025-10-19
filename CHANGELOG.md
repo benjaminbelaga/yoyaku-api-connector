@@ -2,6 +2,22 @@
 
 All notable changes to YOYAKU API Connector will be documented in this file.
 
+## [1.2.0] - 2025-10-19
+
+### Added
+- ✅ **Publication status tracking**: New `is_online` boolean field in API response
+- ✅ **Post status field**: Returns WordPress `post_status` (publish, draft, pending, etc.)
+- ✅ **Support for non-published products**: API now returns data for all products regardless of publication status
+
+### Changed
+- ✅ Removed automatic filtering of non-published products
+- ✅ API consumers can now determine publication status client-side
+
+### Use Cases
+- Google Sheets can display "online" vs "not online" with conditional formatting
+- Inventory management tools can track unpublished products
+- Better visibility into product lifecycle status
+
 ## [1.1.0] - 2025-10-19
 
 ### Changed

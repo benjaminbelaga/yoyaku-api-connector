@@ -108,9 +108,12 @@ class YOYAKU_Product_Stock_Endpoint extends YOYAKU_Base_Endpoint {
 
         // Get basic product data
         $product = $this->get_product_basic_data($product_id);
-        if (!$product || $product->post_status !== 'publish') {
+        if (!$product) {
             return null;
         }
+
+        // Determine if product is online (published)
+        $is_online = ($product->post_status === 'publish');
 
         // Get stock data
         $stock = $this->get_stock_data($product_id);
@@ -130,6 +133,10 @@ class YOYAKU_Product_Stock_Endpoint extends YOYAKU_Base_Endpoint {
             'product_id' => $product_id,
             'title' => $product->post_title,
             'found' => true,
+
+            // Publication status
+            'is_online' => $is_online,
+            'post_status' => $product->post_status,
 
             // Image data
             'image_url' => $image_url,
