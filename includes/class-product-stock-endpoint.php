@@ -121,7 +121,7 @@ class YOYAKU_Product_Stock_Endpoint extends YOYAKU_Base_Endpoint {
         // Get custom fields
         $depot_vente = $this->get_custom_field($product_id, '_depot_vente');
         $initial_quantity = $this->get_custom_field($product_id, '_initial_quantity');
-        $shelf_quantity = $this->get_custom_field($product_id, 'yid_total_shelf');
+        $shelf_quantity = $this->get_custom_field($product_id, '_yyd_shelf_count');
         $total_preorders = $this->get_custom_field($product_id, '_total_preorders');
 
         // Format response - optimized for Google Sheets

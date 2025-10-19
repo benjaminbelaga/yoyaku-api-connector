@@ -2,6 +2,18 @@
 
 All notable changes to YOYAKU API Connector will be documented in this file.
 
+## [1.1.0] - 2025-10-19
+
+### Changed
+- ✅ **BREAKING CHANGE**: Migrated shelf quantity field from `yid_total_shelf` to `_yyd_shelf_count`
+- ✅ Updated Product Stock Data endpoint to use new unified field name
+- ✅ Aligns with YYD B2B inventory field standardization
+
+### Migration Notes
+- API response structure unchanged (still returns `shelf_quantity` key)
+- Backend now reads from `_yyd_shelf_count` custom field
+- No changes required in Google Apps Script consumers
+
 ## [1.0.0] - 2025-10-18
 
 ### Added
@@ -13,7 +25,7 @@ All notable changes to YOYAKU API Connector will be documented in this file.
 - ✅ Direct database queries for maximum performance
 - ✅ No authentication required (public read-only endpoints)
 - ✅ CORS headers for Google Apps Script access
-- ✅ Returns: images, stock, custom fields (_depot_vente, _initial_quantity, yid_total_shelf, _total_preorders)
+- ✅ Returns: images, stock, custom fields (_depot_vente, _initial_quantity, _yyd_shelf_count, _total_preorders)
 
 ### Technical Details
 - **Performance**: < 100ms response time (vs 1-3s for WooCommerce API)
