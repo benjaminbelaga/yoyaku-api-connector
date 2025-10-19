@@ -11,6 +11,60 @@ defined('ABSPATH') || exit;
 abstract class YOYAKU_Base_Endpoint {
 
     /**
+     * ULTRA-OPTIMIZED: Get complete product data by SKU in single query
+     * Replaces: get_product_id_by_sku + get_product_basic_data + all get_custom_field calls
+     *
+     * Performance: 9 queries → 1 query per product (89% reduction!)
+     *
+     * @param string $sku Product SKU
+     * @param array $meta_keys Array of meta keys to retrieve (default: common fields)
+     * @return object|null Complete product data or null if not found
+     */
+    protected function get_complete_product_data_by_sku($sku, $meta_keys = array()) {
+        global $wpdb;
+
+        // Default meta keys if none provided
+        if (empty($meta_keys)) {
+            $meta_keys = array(
+                '_stock',
+                '_stock_status',
+                '_thumbnail_id',
+                '_depot_vente',
+                '_initial_quantity',
+                '_yyd_shelf_count',
+                '_total_preorders'
+            );
+        }
+
+        // Build CASE statements for each meta key
+        $case_statements = array();
+        foreach ($meta_keys as $key) {
+            $safe_key = esc_sql($key);
+            $case_statements[] = "MAX(CASE WHEN pm.meta_key = '{$safe_key}' THEN pm.meta_value END) as `{$safe_key}`";
+        }
+        $cases = implode(",\n            ", $case_statements);
+
+        // Single mega-query: SKU lookup + post data + all meta fields
+        $query = "
+            SELECT
+                p.ID as product_id,
+                p.post_title,
+                p.post_status,
+                {$cases}
+            FROM {$wpdb->postmeta} pm_sku
+            INNER JOIN {$wpdb->posts} p ON pm_sku.post_id = p.ID
+            LEFT JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
+            WHERE pm_sku.meta_key = '_sku'
+              AND pm_sku.meta_value = %s
+              AND p.post_type = 'product'
+            GROUP BY p.ID
+            LIMIT 1
+        ";
+
+        return $wpdb->get_row($wpdb->prepare($query, strtoupper($sku)));
+    }
+
+    /**
      * Get product ID by SKU
      * Direct database query - no filters/hooks
      *
