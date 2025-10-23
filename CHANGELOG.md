@@ -2,6 +2,29 @@
 
 All notable changes to YOYAKU API Connector will be documented in this file.
 
+## [1.4.0] - 2025-10-23
+
+### Changed
+- ✅ **BREAKING CHANGE**: Standardized shelf field name from `_yyd_shelf_count` to `_yyd_total_shelf`
+- ✅ Aligns with ecosystem-wide custom field naming convention across YSC, YIO, and theme documentation
+- ✅ Semantic correction: `_yyd_total_shelf` accurately represents EUR total value (not a count)
+
+### Migration Notes
+- API response structure unchanged (still returns `shelf_quantity` key)
+- Backend now reads from `_yyd_total_shelf` custom field
+- Database migration recommended: rename `_yyd_shelf_count` → `_yyd_total_shelf` if data exists
+- No changes required in Google Apps Script consumers (API contract maintained)
+
+### Technical Details
+- Updated `class-base-endpoint.php:34` - Changed meta key in default query array
+- Updated `class-product-stock-endpoint.php:141` - Changed custom field reference
+- Maintains backward compatibility at API response level
+
+### Naming Consistency
+- ✅ `_total_preorders` (total preorders count)
+- ✅ `_yyd_total_shelf` (total shelf value EUR) - NOW CONSISTENT
+- ✅ `_units_on_shelf` (physical units count)
+
 ## [1.3.0] - 2025-10-19
 
 ### Performance 🚀
@@ -38,16 +61,17 @@ All notable changes to YOYAKU API Connector will be documented in this file.
 - Inventory management tools can track unpublished products
 - Better visibility into product lifecycle status
 
-## [1.1.0] - 2025-10-19
+## [1.1.0] - 2025-10-19 (SUPERSEDED BY v1.4.0)
 
 ### Changed
-- ✅ **BREAKING CHANGE**: Migrated shelf quantity field from `yid_total_shelf` to `_yyd_shelf_count`
+- ⚠️ **SUPERSEDED**: Migrated shelf quantity field from `yid_total_shelf` to `_yyd_shelf_count`
+- ⚠️ **NOTE**: This version used incorrect field name. Please upgrade to v1.4.0 which uses `_yyd_total_shelf`
 - ✅ Updated Product Stock Data endpoint to use new unified field name
 - ✅ Aligns with YYD B2B inventory field standardization
 
 ### Migration Notes
 - API response structure unchanged (still returns `shelf_quantity` key)
-- Backend now reads from `_yyd_shelf_count` custom field
+- Backend reads from `_yyd_shelf_count` custom field (incorrect - fixed in v1.4.0)
 - No changes required in Google Apps Script consumers
 
 ## [1.0.0] - 2025-10-18
@@ -61,7 +85,7 @@ All notable changes to YOYAKU API Connector will be documented in this file.
 - ✅ Direct database queries for maximum performance
 - ✅ No authentication required (public read-only endpoints)
 - ✅ CORS headers for Google Apps Script access
-- ✅ Returns: images, stock, custom fields (_depot_vente, _initial_quantity, _yyd_shelf_count, _total_preorders)
+- ✅ Returns: images, stock, custom fields (_depot_vente, _initial_quantity, _yyd_total_shelf, _total_preorders)
 
 ### Technical Details
 - **Performance**: < 100ms response time (vs 1-3s for WooCommerce API)

@@ -193,7 +193,9 @@ GPL-2.0+
 
 ## 🎯 Version
 
-**1.0.0** - Initial release with Product Stock Data endpoint
+**1.4.0** - Standardized custom field naming (`_yyd_total_shelf`)
+
+See [CHANGELOG.md](CHANGELOG.md) for version history.
 
 ---
 

@@ -31,7 +31,7 @@ abstract class YOYAKU_Base_Endpoint {
                 '_thumbnail_id',
                 '_depot_vente',
                 '_initial_quantity',
-                '_yyd_shelf_count',
+                '_yyd_total_shelf',
                 '_total_preorders'
             );
         }
