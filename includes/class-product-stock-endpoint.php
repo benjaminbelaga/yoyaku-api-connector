@@ -138,7 +138,7 @@ class YOYAKU_Product_Stock_Endpoint extends YOYAKU_Base_Endpoint {
             // Custom fields (from single query)
             'depot_vente' => isset($data->_depot_vente) ? $data->_depot_vente : '',
             'initial_quantity' => isset($data->_initial_quantity) ? $data->_initial_quantity : '',
-            'shelf_quantity' => isset($data->_yyd_total_shelf) ? $data->_yyd_total_shelf : '',
+            'shelf_quantity' => isset($data->_total_shelves) ? $data->_total_shelves : '',  // Quantity in units
             'total_preorders' => isset($data->_total_preorders) ? $data->_total_preorders : ''
         );
     }

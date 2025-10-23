@@ -31,7 +31,7 @@ abstract class YOYAKU_Base_Endpoint {
                 '_thumbnail_id',
                 '_depot_vente',
                 '_initial_quantity',
-                '_yyd_total_shelf',
+                '_total_shelves',      // Quantity in units (not _yyd_total_shelf which is EUR amount)
                 '_total_preorders'
             );
         }

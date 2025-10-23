@@ -2,6 +2,23 @@
 
 All notable changes to YOYAKU API Connector will be documented in this file.
 
+## [1.4.1] - 2025-10-23
+
+### Fixed
+- ✅ **CRITICAL FIX**: Changed `shelf_quantity` source from `_yyd_total_shelf` (EUR amount) to `_total_shelves` (quantity in units)
+- ✅ Semantic correction: `_total_shelves` represents physical quantity on shelf, not monetary value
+- ✅ Aligned with correct business logic: quantity fields for calculations, not EUR amounts
+
+### Technical Details
+- Updated `class-base-endpoint.php:34` - Changed from `_yyd_total_shelf` to `_total_shelves`
+- Updated `class-product-stock-endpoint.php:141` - Changed shelf_quantity source field
+- Database verification: `_total_shelves` exists with 503 rows on YOYAKU.IO
+
+### Field Usage Clarification
+- ✅ `_total_shelves` → Quantity in units (physical count) - **USED FOR CALCULATIONS**
+- ✅ `_yyd_total_shelf` → EUR amount (monetary value) - **DIFFERENT PURPOSE**
+- ✅ API response key `shelf_quantity` now returns correct quantity data
+
 ## [1.4.0] - 2025-10-23
 
 ### Changed
