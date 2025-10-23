@@ -2,6 +2,18 @@
 
 All notable changes to YOYAKU API Connector will be documented in this file.
 
+## [1.4.2] - 2025-10-23
+
+### Added
+- ✅ Added `distributor_music` taxonomy to API response
+- ✅ Returns first taxonomy term name from `distributormusic` taxonomy
+- ✅ Enables Google Sheets to auto-fetch distributor information
+
+### Technical Details
+- Added `wp_get_object_terms()` call to fetch `distributormusic` taxonomy
+- New response key: `distributor_music` (string - taxonomy term name)
+- Example: `"distributor_music": "yydistribution"`
+
 ## [1.4.1] - 2025-10-23
 
 ### Fixed

@@ -3,7 +3,7 @@
  * Plugin Name: YOYAKU API Connector
  * Plugin URI: https://github.com/benjaminbelaga/yoyaku-api-connector
  * Description: Centralized REST API endpoints for Google Apps Scripts integration - Ultra-fast direct database queries
- * Version: 1.4.1
+ * Version: 1.4.2
  * Author: Benjamin Belaga
  * Author URI: https://yoyaku.io
  * License: GPL-2.0+
@@ -15,7 +15,7 @@
 defined('ABSPATH') || exit;
 
 // Plugin constants
-define('YOYAKU_API_VERSION', '1.4.1');
+define('YOYAKU_API_VERSION', '1.4.2');
 define('YOYAKU_API_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('YOYAKU_API_PLUGIN_URL', plugin_dir_url(__FILE__));
 

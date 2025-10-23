@@ -117,6 +117,13 @@ class YOYAKU_Product_Stock_Endpoint extends YOYAKU_Base_Endpoint {
             $image_url = wp_get_attachment_url($data->_thumbnail_id);
         }
 
+        // Get distributor music taxonomy term
+        $distributor_music = '';
+        $terms = wp_get_object_terms($data->product_id, 'distributormusic', array('fields' => 'names'));
+        if (!is_wp_error($terms) && !empty($terms)) {
+            $distributor_music = $terms[0]; // Get first term name
+        }
+
         // Format response - optimized for Google Sheets
         return array(
             'sku' => $sku,
@@ -139,7 +146,10 @@ class YOYAKU_Product_Stock_Endpoint extends YOYAKU_Base_Endpoint {
             'depot_vente' => isset($data->_depot_vente) ? $data->_depot_vente : '',
             'initial_quantity' => isset($data->_initial_quantity) ? $data->_initial_quantity : '',
             'shelf_quantity' => isset($data->_total_shelves) ? $data->_total_shelves : '',  // Quantity in units
-            'total_preorders' => isset($data->_total_preorders) ? $data->_total_preorders : ''
+            'total_preorders' => isset($data->_total_preorders) ? $data->_total_preorders : '',
+
+            // Taxonomies
+            'distributor_music' => $distributor_music
         );
     }
 }
